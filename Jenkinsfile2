@@ -3,6 +3,11 @@ pipeline {
     options {
         skipDefaultCheckout true
     }
+    environment {
+        Build_id = '123'
+        whoami = 'naveen'
+        password = 'password'
+    }
     stages {
         stage('Checkout') {
             steps {
@@ -13,21 +18,26 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Building...'
+                echo "Build ID: ${Build_id}"
                 // Add your build steps here
             }
         }
         stage('install requirements') {
             steps {
                 echo 'Installing requirements...'
+                echo "Whoami: ${whoami}"
                
             }
         }
         stage('Test') {
             steps {
                 echo 'Testing...'
+                echo "Password: ${password}"
                 
                 // Add your test steps here
             }
         }
     }
 }
+
+
