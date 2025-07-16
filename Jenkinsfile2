@@ -3,22 +3,34 @@ pipeline {
     options {
         skipDefaultCheckout true
     }
+    parameters {
+        string(name: 'ENV', defaultValue: 'DEVELOPMENT', description: 'Environment to deploy')
+        booleanParam(name: 'RUN_TEST', defaultValue: false, description: 'Whether to run tests')
+        choice(name: 'DEPLOYMENT_TYPE', choices: ['FULL', 'PARTIAL'], description: 'Type of deployment')
+    }
    
     
     stages {
+        stage('print params') {
+            steps {
+                echo "Environment: ${params.ENV}"
+                echo "Run Tests: ${params.RUN_TEST}"
+                echo "Deployment Type: ${params.DEPLOYMENT_TYPE}"
+            }
+        }
       stage ('check creds'){
         steps {
            withCredentials([usernamePassword(credentialsId: 'server-creds', passwordVariable: 'SERVER_PASSWORD', usernameVariable: 'SERVER_USERNAME')]) {
-                echo "Server Username: ${env.SERVER_USERNAME}"
-                echo "Server Password: ${env.SERVER_PASSWORD}"
+                echo "Server Username: ${SERVER_USERNAME}"
+                echo "Server Password: ${SERVER_PASSWORD}"
             }
         }
       }
       stage ('check creds using ssh'){
         steps {
             withCredentials([sshUserPrivateKey(credentialsId: 'krishna-creds', keyFileVariable: 'SSH_KEY', usernameVariable: 'SSH_USER')]) {
-                echo "SSH User: ${env.SSH_USER}"
-                echo "SSH Key File: ${env.SSH_KEY}"
+                echo "SSH User: ${SSH_USER}"
+                echo "SSH Key File: ${SSH_KEY}"
             }
         }
       }
