@@ -4,6 +4,12 @@ pipeline {
         skipDefaultCheckout true
     }
     stages {
+        stage('Checkout') {
+            steps {
+                git url: 'https://github.com/Nkposa/jenkins-project-naveen.git', branch: 'main'
+                echo 'Checked out the repository'
+            }
+        }
         stage('Build') {
             steps {
                 echo 'Building...'
