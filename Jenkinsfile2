@@ -3,15 +3,12 @@ pipeline {
     options {
         skipDefaultCheckout true
     }
-    environment {
-        server_credential = credentials('server-creds')
-        krishna_credential = credentials('krishna-creds')
-    }
+   
     
     stages {
       stage ('check creds'){
         steps {
-           withCredentials([userNamePassword(credentialsId: 'server-creds', passwordVariable: 'SERVER_PASSWORD', usernameVariable: 'SERVER_USERNAME')]) {
+           withCredentials([usernamePassword(credentialsId: 'server-creds', passwordVariable: 'SERVER_PASSWORD', usernameVariable: 'SERVER_USERNAME')]) {
                 echo "Server Username: ${env.SERVER_USERNAME}"
                 echo "Server Password: ${env.SERVER_PASSWORD}"
             }
