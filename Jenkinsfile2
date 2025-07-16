@@ -8,7 +8,7 @@ pipeline {
       
     stage('Print Environment') {
         steps {
-            sh '''
+            sh '''#!/bin/bash
             echo "${env.BUILD_URL}"
             echo "${env.BUILD_ID}"
             echo "${env.BUILD_NUMBER}"
