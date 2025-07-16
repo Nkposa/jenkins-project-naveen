@@ -8,7 +8,7 @@ pipeline {
       
     stage('Print Environment') {
         steps {
-            sh '''#!/bin/bash
+            
             echo "${env.BUILD_URL}"
             echo "${env.BUILD_ID}"
             echo "${env.BUILD_NUMBER}"
@@ -19,7 +19,7 @@ pipeline {
             echo "${env.GIT_COMMIT}"
             echo "${env.GIT_BRANCH}"
             echo "${env.GIT_URL}"
-            '''.stripIndent()
+            
         }
     }
     stage('Checkout') {
