@@ -3,29 +3,21 @@ pipeline {
     options {
         skipDefaultCheckout true
     }
+    environment {
+        server_credential = credentials('server-creds')
+    }
     
     stages {
-      
-    stage('Print Environment') {
+      stage ('check creds'){
         steps {
-            
-            echo "${env.BUILD_URL}"
-            echo "${env.BUILD_ID}"
-            echo "${env.BUILD_NUMBER}"
-            echo "${env.JOB_NAME}"
-            echo "${env.JOB_BASE_NAME}"
-            echo "${env.JOB_URL}"
-            echo "${env.WORKSPACE}"
-            echo "${env.GIT_COMMIT}"
-            echo "${env.GIT_BRANCH}"
-            echo "${env.GIT_URL}"
-            
+            echo "my creds are ${env.server_credential}"
+            echo "Username: ${env.server_credential_USR}"
+            echo "Password: ${env.server_credential_PSW}"
         }
-    }
+      }
+    
     stage('Checkout') {
-        environment {
-            whoami = 'naveen'
-        }
+        
         steps {
             echo "commit: ${env.GIT_COMMIT}"
             git url: 'https://github.com/Nkposa/jenkins-project-naveen.git', branch: 'main'
@@ -46,12 +38,9 @@ pipeline {
         }
     }
     stage('Test') {
-        environment {
-            password = 'password'
-        }
+       
         steps {
             echo 'Testing...'
-            echo "Password: ${env.password}"
             // Add your test steps here
         }
     }
