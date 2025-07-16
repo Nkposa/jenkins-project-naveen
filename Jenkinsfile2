@@ -1,0 +1,15 @@
+pipeline {
+    agent any
+    stages {
+        stage('First Stage') {  
+            steps {
+                echo "Hello From Jenkins"
+            }
+        }
+        stage('Second Stage') { 
+            steps {
+                echo "Naveen from jenkins"
+            }
+        }
+    }
+}
