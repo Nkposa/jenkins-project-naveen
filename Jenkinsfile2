@@ -18,12 +18,12 @@ pipeline {
         }
         stage('Build') {
             environment {
-                Build_id = '12345'
+                
             }
             steps {
                 echo "building id : ${env.BUILD_ID}"
                 echo 'Building...'
-                echo "Build ID: ${env.Build_id}"
+                
                 // Add your build steps here
             }
         }
