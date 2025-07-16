@@ -4,40 +4,51 @@ pipeline {
         skipDefaultCheckout true
     }
     environment {
-        Build_id = '123'
-        whoami = 'naveen'
-        password = 'password'
+      
+       
+       
     }
     stages {
-        stage('Checkout') {
+      
+        stage('Checkout') 
+          environment {
+            whoami = 'naveen'
+        } {
             steps {
                 git url: 'https://github.com/Nkposa/jenkins-project-naveen.git', branch: 'main'
-                echo 'Checked out the repository'
+                echo "Checked out the repository by ${env.whoami}"
             }
         }
         stage('Build') {
+            environment {
+                Build_id = '12345'
+            }
             steps {
                 echo 'Building...'
-                echo "Build ID: ${Build_id}"
+                echo "Build ID: ${env.Build_id}"
                 // Add your build steps here
             }
         }
         stage('install requirements') {
             steps {
                 echo 'Installing requirements...'
-                echo "Whoami: ${whoami}"
+                echo "Whoami: ${env.whoami}"
                
             }
         }
         stage('Test') {
+            environment {
+                password = 'password'
+            }
             steps {
                 echo 'Testing...'
-                echo "Password: ${password}"
+                echo "Password: ${env.password}"
                 
                 // Add your test steps here
             }
         }
     }
 }
+
 
 
