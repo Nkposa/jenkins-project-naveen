@@ -11,6 +11,7 @@ pipeline {
                 whoami = 'naveen'
             }
             steps {
+                echo "commit: ${env.GIT_COMMIT}"
                 git url: 'https://github.com/Nkposa/jenkins-project-naveen.git', branch: 'main'
                 echo "Checked out the repository by ${env.whoami}"
             }
@@ -20,6 +21,7 @@ pipeline {
                 Build_id = '12345'
             }
             steps {
+                echo "building id : ${env.BUILD_ID}"
                 echo 'Building...'
                 echo "Build ID: ${env.Build_id}"
                 // Add your build steps here
