@@ -3,17 +3,13 @@ pipeline {
     options {
         skipDefaultCheckout true
     }
-    environment {
-      
-       
-       
-    }
+    
     stages {
       
-        stage('Checkout') 
-          environment {
-            whoami = 'naveen'
-        } {
+        stage('Checkout') {
+            environment {
+                whoami = 'naveen'
+            }
             steps {
                 git url: 'https://github.com/Nkposa/jenkins-project-naveen.git', branch: 'main'
                 echo "Checked out the repository by ${env.whoami}"
