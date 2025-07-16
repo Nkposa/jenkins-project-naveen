@@ -6,6 +6,24 @@ pipeline {
     
     stages {
       
+      stage{
+        steps{
+            sh '''
+            echo "${env.BUILD_URL}"
+            echo "${env.BUILD_ID}"
+            echo "${env.BUILD_NUMBER}"
+          
+            echo "${env.JOB_NAME}"
+            echo "${env.JOB_BASE_NAME}"
+            echo "${env.JOB_URL}"
+            echo "${env.WORKSPACE}"
+            echo "${env.GIT_COMMIT}"
+            echo "${env.GIT_BRANCH}"
+            echo "${env.GIT_URL}"
+            '''.stripIndent()
+
+        }
+      }
         stage('Checkout') {
             environment {
                 whoami = 'naveen'
