@@ -5,14 +5,24 @@ pipeline {
     }
     environment {
         server_credential = credentials('server-creds')
+        krishna_credential = credentials('krishna-creds')
     }
     
     stages {
       stage ('check creds'){
         steps {
-            echo "my creds are ${env.server_credential}"
-            echo "Username: ${env.server_credential_USR}"
-            echo "Password: ${env.server_credential_PSW}"
+           withCredentials([userNamePassword(credentialsId: 'server-creds', passwordVariable: 'SERVER_PASSWORD', usernameVariable: 'SERVER_USERNAME')]) {
+                echo "Server Username: ${env.SERVER_USERNAME}"
+                echo "Server Password: ${env.SERVER_PASSWORD}"
+            }
+        }
+      }
+      stage ('check creds using ssh'){
+        steps {
+            withCredentials([sshUserPrivateKey(credentialsId: 'krishna-creds', keyFileVariable: 'SSH_KEY', usernameVariable: 'SSH_USER')]) {
+                echo "SSH User: ${env.SSH_USER}"
+                echo "SSH Key File: ${env.SSH_KEY}"
+            }
         }
       }
     
