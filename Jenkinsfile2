@@ -6,13 +6,12 @@ pipeline {
     
     stages {
       
-      stage{
-        steps{
+    stage('Print Environment') {
+        steps {
             sh '''
             echo "${env.BUILD_URL}"
             echo "${env.BUILD_ID}"
             echo "${env.BUILD_NUMBER}"
-          
             echo "${env.JOB_NAME}"
             echo "${env.JOB_BASE_NAME}"
             echo "${env.JOB_URL}"
@@ -21,48 +20,41 @@ pipeline {
             echo "${env.GIT_BRANCH}"
             echo "${env.GIT_URL}"
             '''.stripIndent()
-
         }
-      }
-        stage('Checkout') {
-            environment {
-                whoami = 'naveen'
-            }
-            steps {
-                echo "commit: ${env.GIT_COMMIT}"
-                git url: 'https://github.com/Nkposa/jenkins-project-naveen.git', branch: 'main'
-                echo "Checked out the repository by ${env.whoami}"
-            }
+    }
+    stage('Checkout') {
+        environment {
+            whoami = 'naveen'
         }
-        stage('Build') {
-            environment {
-                
-            }
-            steps {
-                echo "building id : ${env.BUILD_ID}"
-                echo 'Building...'
-                
-                // Add your build steps here
-            }
+        steps {
+            echo "commit: ${env.GIT_COMMIT}"
+            git url: 'https://github.com/Nkposa/jenkins-project-naveen.git', branch: 'main'
+            echo "Checked out the repository by ${env.whoami}"
         }
-        stage('install requirements') {
-            steps {
-                echo 'Installing requirements...'
-                echo "Whoami: ${env.whoami}"
-               
-            }
+    }
+    stage('Build') {
+        steps {
+            echo "building id : ${env.BUILD_ID}"
+            echo 'Building...'
+            // Add your build steps here
         }
-        stage('Test') {
-            environment {
-                password = 'password'
-            }
-            steps {
-                echo 'Testing...'
-                echo "Password: ${env.password}"
-                
-                // Add your test steps here
-            }
+    }
+    stage('install requirements') {
+        steps {
+            echo 'Installing requirements...'
+            echo "Whoami: ${env.whoami}"
         }
+    }
+    stage('Test') {
+        environment {
+            password = 'password'
+        }
+        steps {
+            echo 'Testing...'
+            echo "Password: ${env.password}"
+            // Add your test steps here
+        }
+    }
     }
 }
 
