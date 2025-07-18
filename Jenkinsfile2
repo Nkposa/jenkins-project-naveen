@@ -30,6 +30,10 @@ pipeline {
             }
         }
         stage('Push Docker Image') {
+            input {
+                message "Do you want to push the Docker image ${image_tag}?"
+                ok "Yes, push the image"
+            }
             steps {
                 sh "docker push ${image_tag}"
                 echo "Image pushed: ${image_tag} successfully"
