@@ -26,7 +26,7 @@ pipeline {
         }
         stage('Build Docker Image') {
             steps {
-              sh "docker build -t ${env.IMAGE_TAG} ."
+              sh "sudo docker build -t ${env.IMAGE_TAG} ."
               echo "Image built: ${env.IMAGE_TAG} successfully"
             }
         }
@@ -36,7 +36,7 @@ pipeline {
                 ok "Yes, push the image"
             }
             steps {
-                sh "docker push ${env.IMAGE_TAG}"
+                sh "sudo docker push ${env.IMAGE_TAG}"
                 echo "Image pushed: ${env.IMAGE_TAG} successfully"
             }
         }
