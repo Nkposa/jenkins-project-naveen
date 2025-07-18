@@ -1,8 +1,8 @@
 pipeline {
     agent any
     environment {
-        image_name = 'nkposa/my-flask-app'
-        image_tag = "nkposa/my-flask-app:v${BUILD_NUMBER}"
+        IMAGE_NAME = 'nkposa/my-flask-app'
+        IMAGE_TAG = "nkposa/my-flask-app:v${BUILD_NUMBER}"
     }
     stages {
         stage('Install Dependencies') {
@@ -25,18 +25,18 @@ pipeline {
         }
         stage('Build Docker Image') {
             steps {
-                sh "docker build -t ${image_tag} ."
-                echo "Image built: ${image_tag} successfully"
+                sh "docker build -t ${IMAGE_TAG} ."
+                echo "Image built: ${IMAGE_TAG} successfully"
             }
         }
         stage('Push Docker Image') {
             input {
-                message "Do you want to push the Docker image ${image_tag}?"
+                message "Do you want to push the Docker image ${IMAGE_TAG}?"
                 ok "Yes, push the image"
             }
             steps {
-                sh "docker push ${image_tag}"
-                echo "Image pushed: ${image_tag} successfully"
+                sh "docker push ${IMAGE_TAG}"
+                echo "Image pushed: ${IMAGE_TAG} successfully"
             }
         }
     }
