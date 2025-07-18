@@ -17,13 +17,13 @@ pipeline {
                         }
 }
         stage('Docker login') {
-            steps {
-                withCredentials([usernamePassword(credentialsId: 'docker-creds', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
-                    sh 'echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin'
-                    echo "Docker login successful"
-                }
-            }
+    steps {
+        withCredentials([usernamePassword(credentialsId: 'docker-creds', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
+            sh 'echo $DOCKER_PASSWORD | sudo docker login -u $DOCKER_USERNAME --password-stdin'
+            echo "Docker login successful"
         }
+    }
+}
         stage('Build Docker Image') {
             steps {
               sh "sudo docker build -t ${env.IMAGE_TAG} ."
