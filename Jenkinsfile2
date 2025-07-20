@@ -1,5 +1,7 @@
 pipeline {
-    agent any
+    agent {
+        label 'slave1'
+    }
     environment {
         IMAGE_NAME = 'nkposa/my-flask-app'
         IMAGE_TAG = "nkposa/my-flask-app:v${BUILD_NUMBER}"
