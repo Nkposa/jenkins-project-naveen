@@ -3,7 +3,7 @@ pipeline {
         label 'slaves'
     }
     tools {
-        docker 'docker'
+        dockerTool 'docker'
     }
     environment {
         IMAGE_NAME = 'nkposa/my-flask-app'
