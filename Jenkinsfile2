@@ -1,6 +1,6 @@
 pipeline {
     agent {
-        label 'slave1'
+        label 'slaves'
     }
     environment {
         IMAGE_NAME = 'nkposa/my-flask-app'
