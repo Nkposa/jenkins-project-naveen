@@ -1,0 +1,45 @@
+name: Control Datadog-agent on linux servers
+
+on:
+  workflow_dispatch:
+    inputs:
+      service:
+        description: 'Service to control (e.g., datadog-agent)'
+        required: true
+        default: 'datadog-agent'
+
+      operation:
+        description: 'operations to do (e.g,. start, stop, restart, status)'
+        required: true
+        default: status
+        type: choice
+        options:
+        - status
+        - stop
+        - start
+        - restart
+
+      hostname/ip:
+        description: 'Provide the hostname/ip'
+        required: true
+
+jobs:
+  control-service:
+  runs_on: ubuntu-latest
+  steps:
+  - name: Checkout code
+    uses: actions/checkout@v4
+
+  - name: Set up SSH key
+    uses: webfactory/ssh-agent@v0.9.0
+    with:
+        ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+  - name: Run systemctl command on servers
+    env:
+          SERVICE: ${{ github.event.inputs.service }}
+          OPERATION: ${{ github.event.inputs.operation }}
+          SERVER: ${{ github.event.inputs.servername }}
+    run: |
+          echo "Running: sudo systemctl $OPERATION $SERVICE on $SERVER"
+          ssh -o StrictHostKeyChecking=no $USER@$SERVER "sudo systemctl $OPERATION $SERVICE"
