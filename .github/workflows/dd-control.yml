@@ -40,7 +40,9 @@ jobs:
           SERVICE: ${{ github.event.inputs.service }}
           OPERATION: ${{ github.event.inputs.operation }}
           SERVER: ${{ github.event.inputs.host }}
-          USER: ${{ secrets.SSH_USER }}
+          USER: ubuntu
+        
         run: |
-          echo "Running: sudo systemctl $OPERATION $SERVICE on $SERVER"
-          ssh -o StrictHostKeyChecking=no $USER@$SERVER "sudo systemctl $OPERATION $SERVICE"
+            set -x  # Enables command tracing
+            echo "Connecting to $SERVER as $USER"
+            ssh -o StrictHostKeyChecking=no $USER@$SERVER "echo 'Connected'; sudo systemctl $OPERATION $SERVICE"
