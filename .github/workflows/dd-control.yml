@@ -42,7 +42,9 @@ jobs:
           SERVER: ${{ github.event.inputs.host }}
           USER: ubuntu
         
+        
         run: |
-            set -x  # Enables command tracing
+            set -euxo pipefail  # Enables debug mode and stops on errors
             echo "Connecting to $SERVER as $USER"
-            ssh -o StrictHostKeyChecking=no $USER@$SERVER "echo 'Connected'; sudo systemctl $OPERATION $SERVICE"
+            ssh -v -o StrictHostKeyChecking=no $USER@$SERVER "echo 'Connected'; sudo systemctl $OPERATION $SERVICE"
+
